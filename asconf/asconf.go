@@ -187,3 +187,30 @@ func (ac *asconf) loadAsConf() error {
 
 	return nil
 }
+
+func (ac *asconf) ToMap() (m *asconfig.Conf) {
+	 m = ac.cfg.ToMap()
+	 return m
+}
+
+func (ac *asconf) ToConfText() (text []byte) {
+
+	text = []byte(ac.cfg.ToConfFile())
+	return text
+}
+
+func (ac *asconf) LoadMap(m *asconfig.Conf) error {
+	c, err := asconfig.NewMapAsConfig(
+		ac.managementLibLogger,
+		ac.aerospikeVersion,
+		*m,
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to initialize asconfig from yaml: %w", err)
+	}
+
+	ac.cfg = c
+	return nil
+}
+
