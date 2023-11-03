@@ -1,4 +1,4 @@
-module github.com/aerospike/asconfig
+module github.com/minting/asconfig
 
 go 1.20
 
