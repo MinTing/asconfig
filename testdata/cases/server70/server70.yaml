@@ -1,4 +1,6 @@
 logging:
+    - drv-mem: debug
+      name: console
     - any: info
       name: /dummy/file/path2
 namespaces:
@@ -44,7 +46,11 @@ namespaces:
         mounts-budget: 10737418240
         type: pmem
       name: ns1
+      nsup-period: 2048
       replication-factor: 2
+      sets:
+        - default-ttl: 2160000
+          name: s1
       sindex-type:
         evict-mounts-pct: 80
         mounts:
@@ -80,6 +86,7 @@ service:
     pidfile: /dummy/file/path1
     poison-allocations: false
     proto-fd-max: 15000
+    quarantine-allocations: 100
     secrets-address-port: test_dns_name:4000:127.0.0.1
     secrets-tls-context: tlscontext
     secrets-uds-path: /test/path/socket

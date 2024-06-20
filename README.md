@@ -14,21 +14,12 @@ Build asconfig using the included makefile and display usage information.
 ```shell
 git clone https://github.com/aerospike/asconfig.git
 cd asconfig
+git submodule update --init
 make
 ./bin/asconfig --help
 ```
 
 The built binary is available at bin/asconfig.
-
-You can also build asconfig using `go build`.
-
-```shell
-git clone https://github.com/aerospike/asconfig.git
-cd asconfig
-git submodule update --init
-go build -o ./bin/asconfig
-./bin/asconfig --help
-```
 
 Install or uninstall asconfig.
 
@@ -70,21 +61,21 @@ make unit
 ### Integration Tests
 
 Integration tests require that docker is installed and running.
-A path to an Aerospike feature key file should be defined at the `FEATKEY` environment variable.
+A path to an Aerospike feature key file should be defined at the `FEATKEY_DIR` environment variable.
 For more information about the feature key file see the [feature-key docs](https://docs.aerospike.com/server/operations/configure/feature-key).
 
 ```shell
-FEATKEY=/path/to/aerospike/features.conf make integration
+FEATKEY_DIR=/path/to/aerospike/features/dir make integration
 ```
 
 ### All Tests
 
 ```shell
-FEATKEY=/path/to/aerospike/features.conf make test
+FEATKEY_DIR=/path/to/aerospike/features/dir make test
 ```
 
 ### Test Coverage
 
 ```shell
-FEATKEY=/path/to/aerospike/features.conf make view-coverage
+FEATKEY_DIR=/path/to/aerospike/features/dir make view-coverage
 ```

@@ -1,5 +1,4 @@
 //go:build unit
-// +build unit
 
 package cmd
 
@@ -13,7 +12,7 @@ type runTestDiff struct {
 	expectError bool
 }
 
-var testArgs = []runTestDiff{
+var testDiffArgs = []runTestDiff{
 	{
 		flags:       []string{},
 		arguments:   []string{"not_enough_args"},
@@ -59,12 +58,22 @@ var testArgs = []runTestDiff{
 		arguments:   []string{"../testdata/expected/all_flash_cluster_cr.conf", "../testdata/expected/all_flash_cluster_cr.conf"},
 		expectError: false,
 	},
+	{
+		flags:       []string{"--format", "bad_fmt"},
+		arguments:   []string{},
+		expectError: true,
+	},
+	{
+		flags:       []string{"-F", "bad_fmt"},
+		arguments:   []string{},
+		expectError: true,
+	},
 }
 
 func TestRunEDiff(t *testing.T) {
 	cmd := diffCmd
 
-	for i, test := range testArgs {
+	for i, test := range testDiffArgs {
 		cmd.ParseFlags(test.flags)
 		err := cmd.RunE(cmd, test.arguments)
 		if test.expectError == (err == nil) {
